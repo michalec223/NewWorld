@@ -3,6 +3,8 @@ package com.thedreamer.newworld;
 import com.mojang.logging.LogUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.food.FoodProperties;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -12,6 +14,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.BuildCreativeModeTabContentsEvent;
@@ -50,8 +53,15 @@ public class NewWorld
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
     // Creates a new food item with the id "newworld:example_id", nutrition 1 and saturation 2
-    public static final RegistryObject<Item> DIAMOND_APPLE = ITEMS.register("diamond_apple", () -> new Item(new Item.Properties().food(new FoodProperties.Builder()
-            .alwaysEat().nutrition(2).saturationMod(4f).build())));
+    public static final RegistryObject<Item> DIAMOND_APPLE = ITEMS.register("diamond_apple",
+            () -> new Item(new Item.Properties()
+                    .stacksTo(16)
+                    .food(new FoodProperties.Builder()
+                            .nutrition(5)
+                            .saturationMod(0.2f)
+                            .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 200, 2), 1f)
+                            .build())
+            ));
 
     // Creates a creative tab with the id "newworld:example_tab" for the example item, that is placed after the combat tab
     public static final RegistryObject<CreativeModeTab> NOVEL_FOOD = CREATIVE_MODE_TABS.register("novel_food", () -> CreativeModeTab.builder()
