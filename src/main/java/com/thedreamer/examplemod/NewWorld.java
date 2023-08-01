@@ -52,13 +52,12 @@ public class NewWorld
     // Creates a new BlockItem with the id "newworld:example_block", combining the namespace and path
     public static final RegistryObject<Item> EXAMPLE_BLOCK_ITEM = ITEMS.register("example_block", () -> new BlockItem(EXAMPLE_BLOCK.get(), new Item.Properties()));
 
-    // Creates a new food item with the id "newworld:example_id", nutrition 1 and saturation 2
     public static final RegistryObject<Item> DIAMOND_APPLE = ITEMS.register("diamond_apple",
             () -> new Item(new Item.Properties()
                     .stacksTo(16)
                     .food(new FoodProperties.Builder()
                             .nutrition(5)
-                            .saturationMod(0.2f)
+                            .saturationMod(5)
                             .effect(() -> new MobEffectInstance(MobEffects.ABSORPTION, 200, 2), 1f)
                             .build())
             ));
